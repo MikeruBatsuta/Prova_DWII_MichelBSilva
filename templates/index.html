@@ -6,23 +6,25 @@
 </div>
 
 {% if palestrantes %}
-  <p>{{ palestrantes|length }} registro(s).</p>
+<p>{{ palestrantes|length }} registro(s).</p>
 {% else %}
-  <p>Nenhum palestrante cadastrado.</p>
+<p>Nenhum palestrante cadastrado.</p>
 {% endif %}
 
 <ul id="lista">
   {% for item in palestrantes %}
-    <li>
-      <strong>{{ item.nome }}</strong>
-      — {{ item.tema }}
-      — {{ item.minutos }}
+  <li>
+    <strong>{{ item.nome }}</strong>
+    — {{ item.tema }} — {{ item.minutos }}
 
-      <a href="{{ url_for('palestrante.editar', id=item.id) }}">editar</a>
+    <a href="{{ url_for('palestrante.editar', id=item.id) }}">editar</a>
 
-      <form method="post" action="{{ url_for('palestrante.excluir', id=item.id) }}">
-        <button type="submit">excluir</button>
-      </form>
-    </li>
+    <form
+      method="post"
+      action="{{ url_for('palestrante.excluir', id=item.id) }}"
+    >
+      <button type="submit">excluir</button>
+    </form>
+  </li>
   {% endfor %}
 </ul>
