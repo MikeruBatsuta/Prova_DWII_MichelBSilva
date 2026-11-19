@@ -35,6 +35,13 @@ def listar():
 # Se o id nao existir, a resposta e 404 com {"erro": "Palestrante nao encontrado."}.
 # =====================================================================
 
+@api_bp.route("/palestrantes/<int:id>", methods=["GET"])
+def obter(id):
+    palestrante = PalestranteDAO.buscar_por_id(id)
+    if not palestrante:
+        return jsonify({"erro": "Palestrante nao encontrado."}), 404
+    return jsonify(palestrante.para_dicionario())
+
 
 # ===== ITEM 9 ========================================================
 # Escreva aqui a rota DELETE /api/palestrantes/<id>, que remove UM registro.
