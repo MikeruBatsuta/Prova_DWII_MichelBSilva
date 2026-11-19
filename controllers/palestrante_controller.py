@@ -32,9 +32,9 @@ def index():
     # Conte aqui, na SESSAO, quantas vezes esta pessoa abriu a listagem.
     # A chave deve se chamar "visitas". O template ja exibe o valor.
     # =================================================================
+    session["visitas"] = session.get("visitas", 0) + 1
 
     return render_template("index.html", palestrantes=PalestranteDAO.listar())
-
 
 # Edicao - GET mostra o formulario preenchido
 @palestrante_bp.route("/editar/<int:id>", methods=["GET", "POST"])
