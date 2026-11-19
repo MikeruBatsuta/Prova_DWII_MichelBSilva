@@ -48,3 +48,13 @@ def obter(id):
 # Sucesso: 204, sem corpo. Se o id nao existir: 404 com
 # {"erro": "Palestrante nao encontrado."}.
 # =====================================================================
+
+@api_bp.route("/palestrantes/<int:id>", methods=["DELETE"])
+def remover(id):
+    palestrante = PalestranteDAO.buscar_por_id(id)
+    if not palestrante:
+        return jsonify({"erro": "Palestrante nao encontrado."}), 404
+
+    PalestranteDAO.remover(palestrante)
+    return "", 204
+
