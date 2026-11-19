@@ -7,30 +7,31 @@ from models.palestrante import Palestrante
 class PalestranteDAO:
 
     # CREATE
-    @staticmethod
-    def salvar(palestrante):
-        db.session.add(palestrante)
+        @staticmethod
+        def salvar(palestrante):
+            db.session.add(palestrante)
+            db.session.commit()
 
     # READ (todos)
-    @staticmethod
-    def listar():
-        return Palestrante.query.all()
+        @staticmethod
+        def listar():
+            return Palestrante.query.all()
 
     # READ (um) - devolve o objeto ou None
-    @staticmethod
-    def buscar_por_id(id):
-        return Palestrante.query.get(id)
+        @staticmethod
+        def buscar_por_id(id):
+            return Palestrante.query.get(id)
 
     # UPDATE
-    @staticmethod
-    def atualizar(palestrante, nome, tema, minutos):
-        palestrante.nome = nome
-        palestrante.tema = tema
-        palestrante.minutos = minutos
+        @staticmethod
+        def atualizar(palestrante, nome, tema, minutos):
+            palestrante.nome = nome
+            palestrante.tema = tema
+            palestrante.minutos = minutos
         db.session.commit()
 
     # DELETE
-    @staticmethod
-    def excluir(palestrante):
-        db.session.delete(palestrante)
-        db.session.commit()
+        @staticmethod
+        def excluir(palestrante):
+            db.session.delete(palestrante)
+            db.session.commit()
