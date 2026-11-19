@@ -46,8 +46,16 @@ def editar(id):
     # e gravado. Trate aqui o envio: grave a alteracao e volte a listagem.
     # =================================================================
 
-    return render_template("editar.html", palestrante=palestrante)
+    if request.method == "POST":
+        palestrante.nome = request.form["nome"]
+        palestrante.tema = request.form["tema"]
+        palestrante.minutos = request.form["minutos"]
+        PalestranteDAO.atualizar(palestrante)
+        flash("Palestrante atualizado.")
+        return redirect(url_for("palestrante.index"))
 
+    return render_template("editar.html", palestrante=palestrante)
+    
 
 # Exclusao
 @palestrante_bp.route("/excluir/<int:id>", methods=["POST"])
