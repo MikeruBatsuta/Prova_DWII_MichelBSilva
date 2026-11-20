@@ -6,16 +6,15 @@
 var lista = document.getElementById("lista");
 var botaoAtualizar = document.getElementById("atualizar");
 
-
 // Escreve uma mensagem na tela, sem recarregar a pagina.
 function mostrarAviso(texto) {
   var aviso = document.getElementById("aviso-js");
+  
 
   if (aviso) {
     aviso.textContent = texto;
   }
 }
-
 
 // Esvazia a lista e a redesenha com os dados recebidos.
 // "dados" e um array de objetos, como o que a API devolve.
@@ -31,11 +30,8 @@ function desenharLista(dados) {
   mostrarAviso(dados.length + " registro(s) lido(s) sem recarregar a página.");
 }
 
-
 if (botaoAtualizar && lista) {
-
   botaoAtualizar.addEventListener("click", function () {
-
     // ===== ITEM 8 ===================================================
     // Ao clicar no botao, peca a lista a API, no endereco
     // /api/palestrantes, e redesenhe a lista da pagina com o que chegar,
@@ -43,6 +39,19 @@ if (botaoAtualizar && lista) {
     // Se nao for possivel falar com o servidor, avise na tela.
     // ================================================================
 
+    fetch("/api/palestrantes")
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Erro ao buscar dados da API.");
+        }
+        return response.json();
+      })
+      .then(function (dados) {
+        desenharLista(dados);
+      })
+      .catch(function (error) {
+        mostrarAviso("Erro ao buscar dados da API.");
+        console.error("Erro:", error);
+      });
   });
-
 }
